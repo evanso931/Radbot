@@ -1,0 +1,26 @@
+<launch>
+  <!-- Arguments -->
+  <arg name="open_rviz" default="true"/>
+  <arg name="move_forward_only" default="false"/>
+
+  <!-- Really Usefull Robot -->
+
+  <!-- Map server -->
+  <node name="map_server" pkg="map_server" type="map_server" args=" $(find radbot)/maps/map.yaml" />	
+ <node name="map_navigation" pkg="radbot" type="map_navigation_node" output="screen">
+ </node>
+
+  <!-- AMCL -->
+  <include file="$(find radbot)/launch/amcl.launch"/>
+
+  <!-- move_base -->
+  <include file="$(find radbot)/launch/move_base.launch">
+    
+  </include>
+
+  <!-- rviz -->
+  <group if="$(arg open_rviz)"> 
+    <node pkg="rviz" type="rviz" name="rviz" required="true"
+          args="-d $(find radbot)/rviz/rur_navigation.rviz"/>
+  </group>
+</launch>

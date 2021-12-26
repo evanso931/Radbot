@@ -1,0 +1,9 @@
+<launch>
+
+
+<node pkg="robot_localization" type="ekf_localization_node" name="ekf_transform" clear_params="true" output="screen" >
+      <rosparam file="$(find radbot)/param/ekf.yaml" command="load" />
+      <remap from="odometry/filtered" to="odom"/>
+  </node>
+
+</launch>
